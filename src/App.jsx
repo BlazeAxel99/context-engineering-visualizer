@@ -65,6 +65,21 @@ export default function App() {
     }
     
     setActivePreset(presetKey);
+    
+    if (presetKey === 'custom') {
+      setPromptInput('What steps and scripts should our operations run to resolve storage outages on node-us-east-4?');
+      setContextInput('<context>\n  <!-- [Live Audience Challenge] Search vector DB and inject document chunks, or paste custom text here -->\n</context>');
+      setContextTokensCount(15);
+      setTerminalOutput('Ready. Under Live Audience Challenge, enter custom prompts or inject database chunks and stream responses.');
+      setTerminalStatus('idle');
+      setLatStat('-- ms');
+      setCostStat('$--');
+      setGroundStat('--%');
+      setSearchResults([]);
+      setSearchQuery('');
+      return;
+    }
+    
     const preset = PRESETS[presetKey];
     setPromptInput(preset.prompt);
     setContextInput(preset.context);
