@@ -250,11 +250,45 @@ export default function App() {
     } else if (activePreset === 'injection') {
       statsSource = PRESETS.injection;
     } else if (activePreset === 'custom') {
-      // Dynamic response matching context
-      statsSource = {
-        stats: { latency: "210 ms", cost: "$0.00045", grounding: "100%" },
-        output: `According to internal cloud files [Source: ${searchResults[0]?.source || 'search-vector'}], authentication or operations credentials are managed structurally. For calling gate APIs, headers must load: \`Authorization: Bearer <JWT>\`. Outages or disk capacities on cluster node node-us-east-4 require executing command \`/opt/vectraflux/scripts/purge_temp_logs.sh\` or docker restarts.`
-      };
+      // Dynamic response matching prompt & context content realistically!
+      const hasInjectedContext = contextInput.trim() !== '' && 
+                                 !contextInput.includes('[Live Audience Challenge]') && 
+                                 contextInput.length > 30;
+      const promptLower = promptInput.toLowerCase();
+      
+      if (!hasInjectedContext) {
+        // No context injected (equivalent to Prompt Only / No RAG)
+        let fallbackMsg = `I do not have access to real-time information or external internet APIs (such as live weather updates). Since there is no grounding context supplied in my context window, I cannot answer the query: "${promptInput}". Please supply the relevant operational files or logs inside the Injected XML Context box.`;
+        
+        if (promptLower.includes('weather')) {
+          fallbackMsg = `I do not have access to real-time meteorological services or weather APIs. Because no grounding context has been injected, I cannot determine the weather. Please provide weather reports or database files inside the context window to answer this query.`;
+        }
+        
+        statsSource = {
+          stats: { latency: "310 ms", cost: "$0.00015", grounding: "0%" },
+          output: fallbackMsg
+        };
+      } else {
+        // Context is present! Let's simulate dynamic grounding based on search results or keywords
+        let dynamicOutput = "";
+        let finalGroundingVal = "90%";
+        
+        if (promptLower.includes('weather')) {
+          dynamicOutput = `Based on the custom context provided, I cannot find any weather reports or meteorological telemetry files. The provided logs only mention cluster servers. Therefore, I cannot verify the current weather conditions.`;
+          finalGroundingVal = "100% (Accurate negation from empty weather context)";
+        } else {
+          // Normal operations query with custom context
+          const docSource = searchResults[0]?.source || 'injected-context';
+          dynamicOutput = `Based on the grounded context [Source: ${docSource}], we can resolve the operational query. The system logs outline running script execution commands or configuration variables safely. Details extracted: \n\n` + 
+            (contextInput.length > 100 ? contextInput.slice(0, 180) + "..." : contextInput) + 
+            `\n\nAll credentials must be managed structurally to prevent prompt hijacking.`;
+        }
+        
+        statsSource = {
+          stats: { latency: "220 ms", cost: "$0.00045", grounding: finalGroundingVal },
+          output: dynamicOutput
+        };
+      }
     } else if (contextInput.trim() !== '') {
       // User manual text injected
       statsSource = {
