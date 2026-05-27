@@ -14,7 +14,7 @@ export default function Header({
       <div className="logo-group">
         <div className="logo-icon"><Layers size={22} /></div>
         <div className="logo-text">
-          <h1>Stratum RAG & Context Sandbox</h1>
+          <h1>VectraFlux RAG & Context Sandbox</h1>
           <span>Enterprise Context Engineering & Grounding Simulator</span>
         </div>
       </div>
