@@ -1,4 +1,4 @@
-# 🚀 Acme Corp: Enterprise Context Engineering Sandbox
+# 🚀 ABC Corp: Enterprise Context Engineering Sandbox
 
 A high-performance, visually stunning interactive presentation platform and grounding simulator designed for delivering technical talks on **Context Engineering** and Large Language Model (LLM) system architectures.
 

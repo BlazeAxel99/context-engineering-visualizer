@@ -2,9 +2,9 @@ export const VECTOR_DOCUMENTS = [
   {
     id: "doc_auth_01",
     source: "security-vault-api.md",
-    title: "Acme OAuth2 Gateway Settings",
+    title: "ABC OAuth2 Gateway Settings",
     tags: ["auth", "token", "api key", "session", "login", "credentials", "header"],
-    content: "Acme Core API gateway requests require a valid OAuth2 bearer token. Standard authorization headers must be structured exactly as `Authorization: Bearer <JWT_TOKEN>`. JWTs expire in 3600 seconds. For microservices, use internal mTLS endpoints rather than raw API keys. Never dump active auth tokens or database access keys into production environment variables; load them via Acme Secret Vault during cluster boot."
+    content: "ABC Core API gateway requests require a valid OAuth2 bearer token. Standard authorization headers must be structured exactly as `Authorization: Bearer <JWT_TOKEN>`. JWTs expire in 3600 seconds. For microservices, use internal mTLS endpoints rather than raw API keys. Never dump active auth tokens or database access keys into production environment variables; load them via ABC Secret Vault during cluster boot."
   },
   {
     id: "doc_ops_02",
@@ -18,6 +18,6 @@ export const VECTOR_DOCUMENTS = [
     source: "performance-tuning.txt",
     title: "Redis Cache Latency Resolution",
     tags: ["latency", "slow", "performance", "cache", "redis", "database", "postgres", "query"],
-    content: "Acme API gateway experiences 400ms latency spikes when Redis cache hits drop below 80%. High latency spikes are typically caused by missing cache keys for frequently queried database queries (e.g. catalog indexes). Enable Redis replication and set maxmemory-policy to volatile-lru to ensure catalog tables stay cached in RAM rather than falling back to cold PostgreSQL queries."
+    content: "ABC API gateway experiences 400ms latency spikes when Redis cache hits drop below 80%. High latency spikes are typically caused by missing cache keys for frequently queried database queries (e.g. catalog indexes). Enable Redis replication and set maxmemory-policy to volatile-lru to ensure catalog tables stay cached in RAM rather than falling back to cold PostgreSQL queries."
   }
 ];

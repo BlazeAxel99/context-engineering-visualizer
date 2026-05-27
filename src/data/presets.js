@@ -4,7 +4,7 @@ export const PRESETS = {
     context: "",
     tokens: { system: 25, prompt: 30, metadata: 0, context: 0, empty: 521 },
     stats: { latency: "380 ms", cost: "$0.00016", grounding: "0%" },
-    output: "I do not have access to Acme Corp's private operations runbooks or internal cluster infrastructure details. To answer what steps or commands are required to resolve node-us-east-4 outages, you must supply the relevant operational documentation (such as operations-runbook.md) inside my context window. Otherwise, I cannot resolve the query."
+    output: "I do not have access to ABC Corp's private operations runbooks or internal cluster infrastructure details. To answer what steps or commands are required to resolve node-us-east-4 outages, you must supply the relevant operational documentation (such as operations-runbook.md) inside my context window. Otherwise, I cannot resolve the query."
   },
   messy: {
     prompt: "What steps and CLI scripts should our operations team run to resolve critical storage outages on cluster node-us-east-4?",
@@ -52,7 +52,7 @@ export const PRESETS = {
 </context>`,
     tokens: { system: 25, prompt: 30, metadata: 12, context: 95, empty: 414 },
     stats: { latency: "190 ms", cost: "$0.00035", grounding: "100%" },
-    output: `Based on Acme Operations Runbook [Source: operations-runbook.md], to resolve a critical storage outage on cluster **node-us-east-4** (triggered when Disk Space exceeds 95%):
+    output: `Based on ABC Operations Runbook [Source: operations-runbook.md], to resolve a critical storage outage on cluster **node-us-east-4** (triggered when Disk Space exceeds 95%):
 
 1. **Recover Disk Space**: Run the temporary logs purging script:
    \`/opt/acme/scripts/purge_temp_logs.sh\`
@@ -62,7 +62,7 @@ export const PRESETS = {
    \`docker restart acme-db-service\` [Source: operations-runbook.md].`
   },
   auth: {
-    prompt: "What headers and auth methods are required for Acme microservice calls, and how do we handle keys safely?",
+    prompt: "What headers and auth methods are required for ABC microservice calls, and how do we handle keys safely?",
     context: `<context>
   <metadata source="security-vault-api.md" classification="CONFIDENTIAL" />
   <security_specs id="doc_auth_01">
@@ -74,11 +74,11 @@ export const PRESETS = {
 </context>`,
     tokens: { system: 25, prompt: 30, metadata: 10, context: 85, empty: 426 },
     stats: { latency: "180 ms", cost: "$0.00032", grounding: "100%" },
-    output: `According to the Acme Security Vault specifications [Source: security-vault-api.md], calling Acme microservices requires:
+    output: `According to the ABC Security Vault specifications [Source: security-vault-api.md], calling ABC microservices requires:
 
 1. **Authorization Request Header**: Inject a valid OAuth2 bearer token structured as:
    \`Authorization: Bearer <JWT_TOKEN>\` (lifespan of 3600 seconds) [Source: security-vault-api.md].
-2. **Secret Key Safety**: Do **NOT** store raw access keys or credentials directly in production environment variables [Source: security-vault-api.md]. Instead, load them securely from the Acme Secret Vault during cluster initialization.
+2. **Secret Key Safety**: Do **NOT** store raw access keys or credentials directly in production environment variables [Source: security-vault-api.md]. Instead, load them securely from the ABC Secret Vault during cluster initialization.
 3. **Service Trust**: Establish internal **mTLS secure tunnels** rather than relying on dynamic API keys for cross-microservice network requests.`
   }
 };
