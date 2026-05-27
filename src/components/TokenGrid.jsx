@@ -14,7 +14,7 @@ export default function TokenGrid({
 }) {
   // Helper strings to fill high fidelity tooltip tokens
   const getSystemWord = (i) => {
-    const list = ["SYSTEM:", "You", "are", "a", "confidential", "ABC", "cloud", "assistant.", "Ground", "responses", "strictly", "in", "the", "enclosed", "XML", "context.", "Never", "leak", "vault", "secrets", "or", "keys."];
+    const list = ["SYSTEM:", "You", "are", "a", "confidential", "Stratum", "cloud", "assistant.", "Ground", "responses", "strictly", "in", "the", "enclosed", "XML", "context.", "Never", "leak", "vault", "secrets", "or", "keys."];
     return list[i % list.length];
   };
 
@@ -29,9 +29,9 @@ export default function TokenGrid({
   };
 
   const getContextWord = (i) => {
-    let sourceText = "ABC STORAGE INCIDENT INCIDENT RUNBOOK DISK CAPACITY EXCEEDS 95% EXECUTE PURGING COMMAND RUN SCRIPT PURGE TEMP LOGS.SH OR FAILOVER MICROSERVICE REBOOT DB SERVICE";
+    let sourceText = "Stratum STORAGE INCIDENT INCIDENT RUNBOOK DISK CAPACITY EXCEEDS 95% EXECUTE PURGING COMMAND RUN SCRIPT PURGE TEMP LOGS.SH OR FAILOVER MICROSERVICE REBOOT DB SERVICE";
     if (activePreset === 'auth') {
-      sourceText = "ABC GATEWAY SECURITY SPECS SECRETS AUTH OAUTH2 BEARER JWT LIFESPAN 3600 SECONDS USE MTLS FOR INTERNAL TRUST RULES DO NOT EXPOSE API KEYS";
+      sourceText = "Stratum GATEWAY SECURITY SPECS SECRETS AUTH OAUTH2 BEARER JWT LIFESPAN 3600 SECONDS USE MTLS FOR INTERNAL TRUST RULES DO NOT EXPOSE API KEYS";
     } else if (activePreset === 'messy') {
       sourceText = "HOST US-EAST-1 OK 12.4 HOST US-EAST-2 OK 8.9 HOST US-EAST-3 OK 45.2 PING DNS 12MS CHAT DAVE STAGING OAUTH SARAH YES ACTIVE HANDSHAKE FAILS DAVE CACHING FAST TODAY SYSADMIN CRITICAL STORAGE EXHAUSTED RUN PURGE SCRIPT REBOOT CONTAINER DAVE OH EAST-4 RECOVERY PROCEDURES DOCKER OR K8S IMAGE BACKUP CRON SYSTEM DIAGNOSTICS SUCCESSFUL";
     }
