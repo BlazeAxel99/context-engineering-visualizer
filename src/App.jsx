@@ -31,13 +31,16 @@ export default function App() {
   const [costStat, setCostStat] = useState('$--');
   const [groundStat, setGroundStat] = useState('--%');
 
+  // Token Cost Calculator slider state
+  const [calculatorTokens, setCalculatorTokens] = useState(16384);
+
   // Tooltip token data
   const [hoveredToken, setHoveredToken] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
   const terminalEndRef = useRef(null);
   const streamingTimer = useRef(null);
-  const totalSlides = 6;
+  const totalSlides = 12;
 
   // Auto scroll console terminal
   useEffect(() => {
@@ -131,16 +134,48 @@ export default function App() {
         setIsAttentionMap(false);
         setIsCaching(false);
       } else if (idx === 4) {
-        // Slide 4: Lost in the Middle syncs automatically with Messy preset & Attention map
+        // Slide 4: Token Economics Slider simulator
+        loadPreset('none');
+        setIsAttentionMap(false);
+        setIsCaching(false);
+      } else if (idx === 5) {
+        // Slide 5: Lost in the Middle (previously 4)
         loadPreset('messy');
         setIsAttentionMap(true);
         setIsCaching(false);
-      } else if (idx === 5) {
+      } else if (idx === 6) {
+        // Slide 6: Multi-Turn Memory Simulation
+        loadPreset('multi_turn');
+        setIsAttentionMap(true);
+        setIsCaching(false);
+      } else if (idx === 7) {
+        // Slide 7: Tool use
+        loadPreset('ops');
+        setIsAttentionMap(false);
+        setIsCaching(false);
+      } else if (idx === 8) {
+        // Slide 8: Prompt Caching (previously 5)
         loadPreset('auth');
         setIsAttentionMap(false);
         setIsCaching(true);
-      } else if (idx === 6) {
+      } else if (idx === 9) {
+        // Slide 9: Guardrails & Context Injection Safety
+        loadPreset('injection');
+        setIsAttentionMap(false);
+        setIsCaching(false);
+      } else if (idx === 10) {
+        // Slide 10: Evaluating Grounding metrics
         loadPreset('ops');
+        setIsAttentionMap(false);
+        setIsCaching(false);
+      } else if (idx === 11) {
+        // Slide 11: Context Playbook (previously 6)
+        loadPreset('ops');
+        setIsAttentionMap(false);
+        setIsCaching(false);
+      } else if (idx === 12) {
+        // Slide 12: Audience Challenge
+        loadPreset('custom');
         setIsAttentionMap(false);
         setIsCaching(false);
       }
@@ -195,6 +230,10 @@ export default function App() {
       statsSource = PRESETS.auth;
     } else if (activePreset === 'messy') {
       statsSource = PRESETS.messy;
+    } else if (activePreset === 'multi_turn') {
+      statsSource = PRESETS.multi_turn;
+    } else if (activePreset === 'injection') {
+      statsSource = PRESETS.injection;
     } else if (activePreset === 'custom') {
       // Dynamic response matching context
       statsSource = {
@@ -250,6 +289,8 @@ export default function App() {
             finalGrounding = "38% (Incident details buried in attention valley)";
           } else if (activePreset === 'messy' && isAttentionMap) {
             finalGrounding = "38% (Recovery commands lost in diagnostic chat noise)";
+          } else if (activePreset === 'multi_turn' && isAttentionMap) {
+            finalGrounding = "52% (Early conversation turns lost to memory window compression)";
           }
 
           setLatStat(finalLatency);
@@ -353,6 +394,9 @@ export default function App() {
             onLeaveToken={() => setHoveredToken(null)}
             onStopStreaming={handleStopStreaming}
             terminalEndRef={terminalEndRef}
+            calculatorTokens={calculatorTokens}
+            setCalculatorTokens={setCalculatorTokens}
+            slideIndex={slideIndex}
           />
         )}
       </main>

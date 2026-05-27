@@ -10,7 +10,9 @@ export default function TokenGrid({
   onLeaveToken,
   latStat,
   costStat,
-  groundStat
+  groundStat,
+  slideIndex,
+  calculatorTokens
 }) {
   // Helper strings to fill high fidelity tooltip tokens
   const getSystemWord = (i) => {
@@ -29,6 +31,10 @@ export default function TokenGrid({
   };
 
   const getContextWord = (i) => {
+    if (slideIndex === 4) {
+      const list = ["TOKEN", "Economics", "Cost", "Latency", "Billing", "Tax", "Compute", "Data", "Scale", "GPU", "VRAM", "Cluster", "Attention"];
+      return list[i % list.length];
+    }
     let sourceText = "VectraFlux STORAGE INCIDENT INCIDENT RUNBOOK DISK CAPACITY EXCEEDS 95% EXECUTE PURGING COMMAND RUN SCRIPT PURGE TEMP LOGS.SH OR FAILOVER MICROSERVICE REBOOT DB SERVICE";
     if (activePreset === 'auth') {
       sourceText = "VectraFlux GATEWAY SECURITY SPECS SECRETS AUTH OAUTH2 BEARER JWT LIFESPAN 3600 SECONDS USE MTLS FOR INTERNAL TRUST RULES DO NOT EXPOSE API KEYS";
@@ -47,7 +53,10 @@ export default function TokenGrid({
     let countMeta = 0;
     let countContext = 0;
 
-    if (activePreset === 'none') {
+    if (slideIndex === 4) {
+      countMeta = 0;
+      countContext = Math.min(500, Math.round((calculatorTokens / 131072) * 500));
+    } else if (activePreset === 'none') {
       countMeta = 0;
       countContext = 0;
     } else if (activePreset === 'ops') {
@@ -59,6 +68,12 @@ export default function TokenGrid({
     } else if (activePreset === 'messy') {
       countMeta = 15;
       countContext = 280;
+    } else if (activePreset === 'multi_turn') {
+      countMeta = 15;
+      countContext = 250;
+    } else if (activePreset === 'injection') {
+      countMeta = 10;
+      countContext = 70;
     } else {
       // custom
       countMeta = contextInput ? 12 : 0;
@@ -113,6 +128,11 @@ export default function TokenGrid({
                 type = 'lost'; // lost attention
               }
             }
+          } else if (activePreset === 'multi_turn') {
+            // Highlight early turns (Turns 1 and 2, which are at the beginning/middle of context) as lost attention!
+            if (ctxIdx < 120) {
+              type = 'lost';
+            }
           }
         }
       }
@@ -120,7 +140,7 @@ export default function TokenGrid({
       items.push({ index: i, type, wordText });
     }
     return { items, totalTokens: countSys + countPrompt + countMeta + countContext };
-  }, [activePreset, isCaching, isAttentionMap, contextInput]);
+  }, [activePreset, isCaching, isAttentionMap, contextInput, slideIndex, calculatorTokens]);
 
   return (
     <div className="viz-card">

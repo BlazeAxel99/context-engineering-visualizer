@@ -1133,6 +1133,8 @@ body {
 .dot-context { background-color: var(--neon-green); }
 .dot-meta { background-color: rgba(255, 255, 255, 0.2); }
 .dot-cache { background-color: var(--neon-cyan); box-shadow: 0 0 4px var(--neon-cyan-glow); }
+.dot-lost { background-color: #2b393b; opacity: 0.25; }
+.dot-crit { background-color: var(--neon-red); box-shadow: 0 0 5px var(--neon-red-glow); }
 
 /* Token grid boxes */
 .grid-frame {
@@ -1638,5 +1640,143 @@ body {
 
 .animate-fade-in {
     animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Decomposed & Expanded presentation helpers */
+.badge-green {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border: 1px solid rgba(16, 185, 129, 0.2) !important;
+    color: var(--neon-green) !important;
+}
+
+.font-semibold {
+    font-weight: 600 !important;
+}
+
+.terminal-line-item {
+    line-height: 1.5;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.text-content {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Token Cost Calculator Slider styles */
+.token-calculator-panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.token-calculator-panel.active-calculator {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
+}
+
+.calc-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.calc-title-row span {
+    color: var(--neon-cyan);
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider-input {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    cursor: pointer;
+}
+
+.slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 5px var(--neon-cyan-glow);
+    transition: transform 0.1s ease;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider-input::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 5px var(--neon-cyan-glow);
+    cursor: pointer;
+    border: none;
+}
+
+.slider-val-badge {
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    color: var(--neon-cyan);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: center;
+}
+
+.calc-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.calc-metric-box {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calc-metric-lbl {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.calc-metric-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-top: 2px;
 }
 

@@ -43,7 +43,10 @@ export default function Playground({
   onHoverToken,
   onLeaveToken,
   onStopStreaming,
-  terminalEndRef
+  terminalEndRef,
+  calculatorTokens,
+  setCalculatorTokens,
+  slideIndex
 }) {
   return (
     <section className="glass-panel playground-panel animate-fade-in">
@@ -72,7 +75,7 @@ export default function Playground({
       </div>
 
       {/* Preset Buttons */}
-      <div className="preset-tabs" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginBottom: '15px' }}>
+      <div className="preset-tabs" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '8px', marginBottom: '15px' }}>
         <button 
           className={`tab-btn ${activePreset === 'none' ? 'active' : ''}`}
           onClick={() => loadPreset('none')}
@@ -80,7 +83,7 @@ export default function Playground({
           <span className="tab-btn-idx">01</span>
           <div className="tab-btn-meta">
             <span className="tab-btn-title">Prompt Only</span>
-            <span className="tab-btn-desc">No context variables</span>
+            <span className="tab-btn-desc">No context</span>
           </div>
         </button>
 
@@ -91,7 +94,7 @@ export default function Playground({
           <span className="tab-btn-idx">02</span>
           <div className="tab-btn-meta">
             <span className="tab-btn-title">Messy Context</span>
-            <span className="tab-btn-desc">Noisy unranked scrape</span>
+            <span className="tab-btn-desc">Noisy dump</span>
           </div>
         </button>
 
@@ -102,7 +105,7 @@ export default function Playground({
           <span className="tab-btn-idx">03</span>
           <div className="tab-btn-meta">
             <span className="tab-btn-title">Ops Incident</span>
-            <span className="tab-btn-desc">Node runbook RAG</span>
+            <span className="tab-btn-desc">RAG runbook</span>
           </div>
         </button>
 
@@ -113,10 +116,77 @@ export default function Playground({
           <span className="tab-btn-idx">04</span>
           <div className="tab-btn-meta">
             <span className="tab-btn-title">API Security</span>
-            <span className="tab-btn-desc">OAuth configs</span>
+            <span className="tab-btn-desc">OAuth specs</span>
+          </div>
+        </button>
+
+        <button 
+          className={`tab-btn ${activePreset === 'multi_turn' ? 'active' : ''}`}
+          onClick={() => loadPreset('multi_turn')}
+        >
+          <span className="tab-btn-idx">05</span>
+          <div className="tab-btn-meta">
+            <span className="tab-btn-title">Multi-Turn</span>
+            <span className="tab-btn-desc">Chat memory</span>
+          </div>
+        </button>
+
+        <button 
+          className={`tab-btn ${activePreset === 'injection' ? 'active' : ''}`}
+          onClick={() => loadPreset('injection')}
+        >
+          <span className="tab-btn-idx">06</span>
+          <div className="tab-btn-meta">
+            <span className="tab-btn-title">Context Safety</span>
+            <span className="tab-btn-desc">Guardrail test</span>
           </div>
         </button>
       </div>
+
+      {/* Dynamic Token Cost Calculator Slider - Visible during slide 4 */}
+      {slideIndex === 4 && (
+        <div className="token-calculator-panel active-calculator animate-fade-in">
+          <div className="calc-title-row">
+            <span>⚙️ Token Economics Cost & Latency Simulator</span>
+            <span>Interactive Demo (Slide 4)</span>
+          </div>
+          <div className="slider-row">
+            <input 
+              type="range" 
+              min="1024" 
+              max="131072" 
+              step="1024" 
+              className="slider-input" 
+              value={calculatorTokens}
+              onChange={(e) => setCalculatorTokens(parseInt(e.target.value))}
+            />
+            <span className="slider-val-badge">
+              {Math.round(calculatorTokens / 1024)}K tkn
+            </span>
+          </div>
+          
+          <div className="calc-metrics-row">
+            <div className="calc-metric-box">
+              <span className="calc-metric-lbl">Est. Latency (TTFT)</span>
+              <span className="calc-metric-val text-purple">
+                {Math.round((calculatorTokens / 1000) * 8.5 + 120)} ms
+              </span>
+            </div>
+            <div className="calc-metric-box">
+              <span className="calc-metric-lbl">Input API Cost</span>
+              <span className="calc-metric-val text-cyan">
+                ${((calculatorTokens * 2.5) / 1000000).toFixed(5)}
+              </span>
+            </div>
+            <div className="calc-metric-box">
+              <span className="calc-metric-lbl">Output API Cost</span>
+              <span className="calc-metric-val text-green">
+                ${((256 * 10) / 1000000).toFixed(5)}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* VECTOR DATABASE SIMULATOR (SEARCH BAR) */}
       <VectorSearch 
@@ -187,6 +257,8 @@ export default function Playground({
           latStat={latStat}
           costStat={costStat}
           groundStat={groundStat}
+          slideIndex={slideIndex}
+          calculatorTokens={calculatorTokens}
         />
 
         {/* Terminal console output */}
