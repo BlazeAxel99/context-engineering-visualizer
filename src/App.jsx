@@ -258,7 +258,7 @@ export default function App() {
       
       if (!hasInjectedContext) {
         // No context injected (equivalent to Prompt Only / No RAG)
-        let fallbackMsg = `I do not have access to real-time information or external internet APIs (such as live weather updates). Since there is no grounding context supplied in my context window, I cannot answer the query: "${promptInput}". Please supply the relevant operational files or logs inside the Injected XML Context box.`;
+        let fallbackMsg = `I do not have access to private operational records or real-time infrastructure metrics. Since there is no grounding context supplied in my context window, I cannot answer the query: "${promptInput}". Please search the vector database and inject the relevant operational files, or paste custom text inside the Injected XML Context box.`;
         
         if (promptLower.includes('weather')) {
           fallbackMsg = `I do not have access to real-time meteorological services or weather APIs. Because no grounding context has been injected, I cannot determine the weather. Please provide weather reports or database files inside the context window to answer this query.`;
