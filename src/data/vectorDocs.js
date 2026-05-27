@@ -11,7 +11,7 @@ export const VECTOR_DOCUMENTS = [
     source: "operations-runbook.md",
     title: "Storage Exhaustion Runbook (US-EAST-4)",
     tags: ["outage", "disk", "storage", "crash", "error", "server", "capacity", "failover"],
-    content: "CRITICAL ALERT: If disk storage exceeds 95% capacity on cluster node node-us-east-4, DB writes fail and APIs return 500 Internal Server Errors. In this event, sysops must run the logs purging cron command `/opt/acme/scripts/purge_temp_logs.sh`. This releases approximately 200GB of active disk storage immediately. If node hangs, reboot container via Docker command `docker restart acme-db-service`."
+    content: "CRITICAL ALERT: If disk storage exceeds 95% capacity on cluster node node-us-east-4, DB writes fail and APIs return 500 Internal Server Errors. In this event, sysops must run the logs purging cron command `/opt/vectraflux/scripts/purge_temp_logs.sh`. This releases approximately 200GB of active disk storage immediately. If node hangs, reboot container via Docker command `docker restart vectraflux-db-service`."
   },
   {
     id: "doc_perf_03",

@@ -21,12 +21,12 @@ export const PRESETS = {
     14:15 dave: cool query caching on Redis looks fast today.
     14:20 sysadmin-bot: CRITICAL ALERT: node-us-east-4 storage exhausted. DB writes fail with 500 error.
     
-    [SYSOP RUNBOOK 4012: FOR node-us-east-4 STORAGE FAILS, IMMEDIATELY RUN SCRIPT \`/opt/acme/scripts/purge_temp_logs.sh\` AND REBOOT DB POD via \`docker restart acme-db-service\` TO RELEASE 200GB STORAGE.]
+    [SYSOP RUNBOOK 4012: FOR node-us-east-4 STORAGE FAILS, IMMEDIATELY RUN SCRIPT \`/opt/vectraflux/scripts/purge_temp_logs.sh\` AND REBOOT DB POD via \`docker restart vectraflux-db-service\` TO RELEASE 200GB STORAGE.]
     
     14:22 dave: oh disk error on east-4. Let me double check what to do.
     14:24 sarah: i think we have a runbook for that? check the operations vault.
     14:35 dave: is node-us-east-4 running docker or k8s?
-    14:38 sarah: docker container. It's the acme-db-service image.
+    14:38 sarah: docker container. It's the vectraflux-db-service image.
     HOST: node-us-east-5 STATUS: OK LOAD: 11.2%
     HOST: node-us-east-6 STATUS: OK LOAD: 18.1%
     CRON TASK DIAGNOSTICS: Backup cron successfully completed for cluster node-us-west-1.
@@ -45,8 +45,8 @@ export const PRESETS = {
     <target_node>node-us-east-4</target_node>
     <trigger>Disk Space > 95%</trigger>
     <remedy_steps>
-      1. Recover Storage: Execute the purging shell command: \`/opt/acme/scripts/purge_temp_logs.sh\` (Clears 200GB temporary logs).
-      2. Service Reset: Restart the containerized database pod: \`docker restart acme-db-service\`
+      1. Recover Storage: Execute the purging shell command: \`/opt/vectraflux/scripts/purge_temp_logs.sh\` (Clears 200GB temporary logs).
+      2. Service Reset: Restart the containerized database pod: \`docker restart vectraflux-db-service\`
     </remedy_steps>
   </incident_runbook>
 </context>`,
@@ -55,11 +55,11 @@ export const PRESETS = {
     output: `Based on VectraFlux Operations Runbook [Source: operations-runbook.md], to resolve a critical storage outage on cluster **node-us-east-4** (triggered when Disk Space exceeds 95%):
 
 1. **Recover Disk Space**: Run the temporary logs purging script:
-   \`/opt/acme/scripts/purge_temp_logs.sh\`
+   \`/opt/vectraflux/scripts/purge_temp_logs.sh\`
    This action immediately clears approximately **200GB** of storage space [Source: operations-runbook.md].
    
 2. **Container Reset**: If the microservice remains unresponsive, restart the containerized database daemon using:
-   \`docker restart acme-db-service\` [Source: operations-runbook.md].`
+   \`docker restart vectraflux-db-service\` [Source: operations-runbook.md].`
   },
   auth: {
     prompt: "What headers and auth methods are required for VectraFlux microservice calls, and how do we handle keys safely?",

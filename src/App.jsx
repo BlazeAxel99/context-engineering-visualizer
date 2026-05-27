@@ -199,7 +199,7 @@ export default function App() {
       // Dynamic response matching context
       statsSource = {
         stats: { latency: "210 ms", cost: "$0.00045", grounding: "100%" },
-        output: `According to internal cloud files [Source: ${searchResults[0]?.source || 'search-vector'}], authentication or operations credentials are managed structurally. For calling gate APIs, headers must load: \`Authorization: Bearer <JWT>\`. Outages or disk capacities on cluster node node-us-east-4 require executing command \`/opt/acme/scripts/purge_temp_logs.sh\` or docker restarts.`
+        output: `According to internal cloud files [Source: ${searchResults[0]?.source || 'search-vector'}], authentication or operations credentials are managed structurally. For calling gate APIs, headers must load: \`Authorization: Bearer <JWT>\`. Outages or disk capacities on cluster node node-us-east-4 require executing command \`/opt/vectraflux/scripts/purge_temp_logs.sh\` or docker restarts.`
       };
     } else if (contextInput.trim() !== '') {
       // User manual text injected

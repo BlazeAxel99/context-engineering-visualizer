@@ -124,7 +124,7 @@ export default function SlidesDeck({
                     <li><CheckCircle2 size={14} className="text-cyan" /> Eliminates API hallucinations entirely</li>
                     <li><AlertTriangle size={14} className="text-red" /> Passive text, useless without instructions</li>
                   </ul>
-                  <div className="comp-pill comp-pill-green">"source='operations-runbook.md' trigger='Disk &gt; 95%' script='/opt/acme/scripts/...'..."</div>
+                  <div className="comp-pill comp-pill-green">"source='operations-runbook.md' trigger='Disk &gt; 95%' script='/opt/vectraflux/scripts/...'..."</div>
                 </div>
               </div>
             </div>
@@ -306,8 +306,8 @@ export default function SlidesDeck({
                       <pre className="pane-code">
 {`This is the US-EAST-4 operational script.
 Disk exceeds 95% run logs script
-/opt/acme/scripts/purge_temp_logs.sh
-Also sysops need to reboot acme-db-service.`}
+/opt/vectraflux/scripts/purge_temp_logs.sh
+Also sysops need to reboot vectraflux-db-service.`}
                       </pre>
                     </div>
                     <div className="code-pane after">
@@ -316,8 +316,8 @@ Also sysops need to reboot acme-db-service.`}
 {`<context>
   <runbook id="doc_ops_02" cluster="US-EAST-4">
     <trigger>Disk Space > 95%</trigger>
-    <command>/opt/acme/scripts/purge_temp_logs.sh</command>
-    <service>acme-db-service</service>
+    <command>/opt/vectraflux/scripts/purge_temp_logs.sh</command>
+    <service>vectraflux-db-service</service>
   </runbook>
 </context>`}
                       </pre>
