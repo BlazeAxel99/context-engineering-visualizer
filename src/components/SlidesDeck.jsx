@@ -115,7 +115,7 @@ export default function SlidesDeck({
                     <li><CheckCircle2 size={14} className="text-cyan" /> Expresses user objective</li>
                     <li><AlertTriangle size={14} className="text-red" /> Fails completely without grounding data</li>
                   </ul>
-                  <div className="comp-pill">"Locate the operations runbook command to resolve Node failures..."</div>
+                  <div className="comp-pill">"What CLI scripts should our operations run to resolve storage outages on node-us-east-4?"</div>
                 </div>
 
                 <div className="comp-box">
@@ -129,7 +129,7 @@ export default function SlidesDeck({
                     <li><CheckCircle2 size={14} className="text-cyan" /> Eliminates API hallucinations entirely</li>
                     <li><AlertTriangle size={14} className="text-red" /> Passive text, useless without instructions</li>
                   </ul>
-                  <div className="comp-pill comp-pill-green">"source='operations-runbook.md' trigger='Disk &gt; 95%' script='/opt/vectraflux/scripts/...'..."</div>
+                  <div className="comp-pill comp-pill-green">"source='operations-runbook.md' target='node-us-east-4' command='/opt/vectraflux/scripts/purge_temp_logs.sh'..."</div>
                 </div>
               </div>
             </div>
